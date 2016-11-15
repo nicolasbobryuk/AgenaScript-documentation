@@ -206,7 +206,33 @@ protected override void Initialize()
 DefaultQuantity = 100;
 }
 ```
+## Entry()
+### Description
+This DataSeries is used in conditions and indicates entry price if signal occurred.
 
+### Parameter
+None
+
+### Return value
+double
+
+### Usage
+In scripted condition for short, long, none signal indication
+
+### Example
+```cs
+protected override void OnBarUpdate()
+{
+if ( CurrentBar %2 == 0 )
+Occurred.Set(1); // Long
+Entry.Set(High[0]); // EntryPrice
+else if ( CurrentBar %3 == 0 )
+Occurred.Set(-1); // Short
+Entry.Set(Low[0]); // EntryPrice
+else
+Occurred.Set(0); 
+}
+```
 ## EnterLong()
 ### Description
 Enter long creates a long position (buy).
@@ -1085,7 +1111,30 @@ Print("Amount of short trades: " + Performance.ShortTrades.Count);
 Print("Result: " + Account.RealizedProfitLoss + " " + Account.Currency);
 }
 ```
+## Occurred()
+### Description
+This DataSeries is used in conditions and indicates if signal occurred (1-long, -1 short, 0- no signal )
 
+### Parameter
+None
+
+### Return value
+Int
+
+### Usage
+In scripted condition for short, long, none signal indication
+
+### Example
+```cs
+protected override void OnBarUpdate()
+{
+if ( CurrentBar %2 == 0 )
+Occurred.Set(1); // Long
+else if ( CurrentBar %3 == 0 )
+Occurred.Set(-1); // Short
+else
+Occurred.Set(0); 
+```
 ## Position
 ### Description
 Position is an object containing information regarding the position currently being managed by a strategy.
